@@ -24,6 +24,9 @@ function routeNameContains($string) {
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    {{-- fontawesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
 </head>
@@ -104,15 +107,25 @@ function routeNameContains($string) {
           </div>
       </div>
 
-      <div class="card {{ routeNameContains('posts.') ? 'border-primary' : '' }}">
-        <div class="card-header {{ routeNameContains('posts.') ? 'text-primary' : '' }}">
-            Post
+        <div class="card {{ routeNameContains('posts.') ? 'border-primary' : '' }}">
+            <div class="card-header {{ routeNameContains('posts.') ? 'text-primary' : '' }}">
+                Post
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="{{route('admin.posts.index')}}" class="list-group-item list-group-item-action {{routeNameContains('posts.index') ? 'active' : ''}}">Tutti i post</a>
+                <a href="{{route('admin.posts.create')}}" class="list-group-item list-group-item-action {{routeNameContains('posts.create') ? 'active' : ''}}">Aggiungi un post</a>
+            </div>
         </div>
-        <div class="list-group list-group-flush">
-            <a href="{{route('admin.posts.index')}}" class="list-group-item list-group-item-action {{routeNameContains('posts.index') ? 'active' : ''}}">Tutti i post</a>
-            <a href="{{route('admin.posts.create')}}" class="list-group-item list-group-item-action {{routeNameContains('posts.create') ? 'active' : ''}}">Aggiungi un post</a>
+
+        <div class="card {{ routeNameContains('categories.') ? 'border-primary' : '' }}">
+            <div class="card-header {{ routeNameContains('categories.') ? 'text-primary' : '' }}">
+                Categorie
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="{{route('admin.categories.index')}}" class="list-group-item list-group-item-action {{routeNameContains('categories.index') ? 'active' : ''}}">Tutte le categorie</a>
+                <a href="{{route('admin.categories.create')}}" class="list-group-item list-group-item-action {{routeNameContains('categories.create') ? 'active' : ''}}">Aggiungi una categoria</a>
+            </div>
         </div>
-    </div>
     </aside>
     <main>
         @yield('content')

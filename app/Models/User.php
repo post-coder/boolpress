@@ -41,4 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    // sintassi per ottenere il modello UserDetail collegato al nostro User
+    public function userDetail() {
+        return $this->hasOne(UserDetail::class);
+    }
 }

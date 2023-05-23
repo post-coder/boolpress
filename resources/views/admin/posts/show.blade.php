@@ -4,6 +4,7 @@
 
 <div class="container">
   <h1>Visualizzazione post</h1>
+  <span>Categoria: {{$post->category->name ?? 'nessuna'}}</span>
 
   <hr class="mb-4">
 

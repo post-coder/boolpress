@@ -1,9 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
-  <h1>Tutti i post</h1>
 
+<div class="container py-3">
+
+  <h1>Tutti i post di categoria {{$category->name}}</h1>
+
+  @if( count($category->posts) > 0)
   <table class="table table-striped mb-4">
     <thead>
       <th>
@@ -13,24 +16,19 @@
         Slug
       </th>
       <th>
-        Categoria
-      </th>
-      <th>
 
       </th>
     </thead>
 
     <tbody>
-      @foreach($posts as $post)
+
+      @foreach($category->posts as $post)
         <tr>
           <td>
             {{$post->title}}
           </td>
           <td>
             {{$post->slug}}
-          </td>
-          <td>
-            {{$post->category?->name}}
           </td>
           <td>
             <a href="{{route('admin.posts.show', $post)}}"><i class="fa-solid fa-magnifying-glass"></i></a>
@@ -40,11 +38,12 @@
 
     </tbody>
   </table>
+  @else
 
-  <div class="d-flex justify-content-around">
-    <a href="{{route('admin.posts.create')}}" class="btn btn-primary">
-      Aggiungi un post
-    </a>
-  </div>
+    <em>Nessun post di questa categoria</em>
+      
+  @endif
+
 </div>
+
 @endsection
