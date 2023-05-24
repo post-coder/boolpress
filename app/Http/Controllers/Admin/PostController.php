@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -32,8 +33,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -53,8 +55,18 @@ class PostController extends Controller
         $post->fill($formData);
         // inserisco lo slug utilizzando l'helper Str
         $post->slug = Str::slug($post->title, '-');
-
+        
+        // il save va fatto prima dell'inserimento dei tag (relazione molti a molti)
+        // perchè solo quando effettuiamo il salvataggio della riga nel database viene generato l'id
         $post->save();
+    
+        // dobbiamo inserire i tag relativi al post nella tabella ponte
+        if(array_key_exists('tags',$formData)) {
+            // il metodo attach della risorsa many-to-many "tags" che abbiamo collegato a Post (RICORDIAMOCI di usare le tonde)
+            // ci permette di inserire in automatico nella tabella ponte i collegamenti, riga per riga, con i tag
+            // passatigli tramite un array
+            $post->tags()->attach($formData['tags']);
+        }
 
         return redirect()->route('admin.posts.show', $post);
     }
@@ -80,8 +92,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -95,11 +108,22 @@ class PostController extends Controller
     {
         $formData = $request->all();
 
+        // dd($formData);
+
         $this->validation($formData);
 
         $post->slug = Str::slug($formData['title'], '-');
         // $formData['slug'] = Str::slug($formData['title'], '-');
         $post->update($formData);
+
+        // dobbiamo sempre controllare che l'array esista
+        if(array_key_exists('tags',$formData)) {
+            // la funzione sync() ci permette di sincronizzare i tag selezionati nel form con quelli presenti nella tabella ponte
+            $post->tags()->sync($formData['tags']);
+        } else {
+            // dobbiamo specificare che se non è stato selezionato alcun tag, deve eliminare tutti i suoi riferimenti dalla tabella ponte
+            $post->tags()->detach();
+        }
 
         return redirect()->route('admin.posts.show', $post);
     }

@@ -32,6 +32,10 @@
       </tbody>
 
     </table>
+
+    <div class="d-flex justify-content-center py-3">
+      <a href="{{route('admin.categories.create')}}" class="btn btn-primary">Aggiungi una categoria</a>
+    </div>
   </div>
 
 @endsection 

@@ -16,6 +16,9 @@
         Categoria
       </th>
       <th>
+        Tags
+      </th>
+      <th>
 
       </th>
     </thead>
@@ -31,6 +34,20 @@
           </td>
           <td>
             {{$post->category?->name}}
+          </td>
+          <td>
+            {{-- @foreach($post->tags as $tag)
+            <span class="badge rounded-pill mx-1" style="background-color: {{$tag->color}}">{{$tag->name}}</span>
+            @endforeach --}}
+            @php
+            $tagNames = [];
+            
+            foreach ($post->tags as $tag) {
+              $tagNames[] = $tag->name;
+            }
+
+            echo implode(', ', $tagNames);
+            @endphp
           </td>
           <td>
             <a href="{{route('admin.posts.show', $post)}}"><i class="fa-solid fa-magnifying-glass"></i></a>

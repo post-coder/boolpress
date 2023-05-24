@@ -37,6 +37,19 @@
       @enderror
     </div>
 
+    <div class="mb-3 form-group">
+      <h4>Tags</h4>
+
+      @foreach($tags as $tag)
+        <div class="form-check">
+          {{--                                                                         aggiungere questo per fare il controllo dei check --}}
+          <input type="checkbox" id="tag-{{$tag->id}}" name="tags[]" value="{{$tag->id}}" @checked($post->tags->contains($tag))>
+          <label for="tag-{{$tag->id}}">{{$tag->name}}</label>
+        </div>
+      @endforeach
+
+    </div>
+
     <div class="mb-3">
       <label for="content">Contenuto del post</label>
       <textarea name="content" id="content" cols="30" rows="10" class="form-control  @error('content') is-invalid @enderror">{{old('content') ?? $post->content}}</textarea>

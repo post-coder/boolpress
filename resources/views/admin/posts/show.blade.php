@@ -6,6 +6,12 @@
   <h1>Visualizzazione post</h1>
   <span>Categoria: {{$post->category->name ?? 'nessuna'}}</span>
 
+  <div class="d-flex py-3">
+    @foreach($post->tags as $tag)
+      <span class="badge rounded-pill mx-1" style="background-color: {{$tag->color}}">{{$tag->name}}</span>
+    @endforeach
+  </div>
+
   <hr class="mb-4">
 
   <div class="py-3">
