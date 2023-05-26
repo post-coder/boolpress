@@ -10,6 +10,8 @@
 
   <h1>{{$post->title}}</h1>
   <span>Categoria: {{$post->category->name ?? 'nessuna'}}</span>
+  <br>
+  <span>Utente: {{$post->user->name}}</span>
 
   <div class="d-flex py-3">
     @foreach($post->tags as $tag)

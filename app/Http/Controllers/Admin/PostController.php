@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,7 +23,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        // $posts = Post::all();
+
+        // prendo l'id dell'utente
+        $user_id = Auth::id();
+
+
+        $posts = Post::where('user_id', $user_id)->get();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -66,6 +73,8 @@ class PostController extends Controller
         
         $post->fill($formData);
 
+        $post->user_id = Auth::id();
+
         // inserisco lo slug utilizzando l'helper Str
         $post->slug = Str::slug($post->title, '-');
         
@@ -92,8 +101,13 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        
-        return view('admin.posts.show', compact('post'));
+        if($post->user_id == Auth::id()) {
+            
+            return view('admin.posts.show', compact('post'));
+        } else {
+            // se l'utente ha provato a visualizzare IN AMMINISTRAZIONE un post di qualcun altro (con strane intenzioni evidentemente) viene dirottato alla index
+            return redirect()->route('admin.posts.index');
+        }
     }
 
     /**
@@ -104,6 +118,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if($post->user_id != Auth::id()) {
+            return redirect()->route('admin.posts.index');
+        }
+
         $categories = Category::all();
         $tags = Tag::all();
 
