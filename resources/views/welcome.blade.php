@@ -21,7 +21,28 @@
 
 <div class="content">
     <div class="container">
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora temporibus, dicta nemo aliquam totam nisi deserunt soluta quas voluptatum ab beatae praesentium necessitatibus minus, facilis illum rerum officiis accusamus dolores!</p>
+        <h2>Vuoi suggerirmi un post di cui parlare?</h2>
+        <p>Compila questo form per scrivermi in privato, verrai ricontattato il prima possibile!</p>
+
+        <form action="{{route('email.store')}}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label for="name">Come ti chiami?</label>
+                <input type="text" name="name" id="name" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="email">Qual è la tua mail?</label>
+                <input type="email" name="email" id="email" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="content">Scrivimi qualcosa</label>
+                <textarea id="content" name="content" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Invia</button>
+        </form>
     </div>
 </div>
 @endsection

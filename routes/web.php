@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Mail\LeadController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 // gruppo di rotte controllate dal middleware che necessitano autenticazione
 Route::middleware(['auth', 'verified'])
@@ -35,6 +36,9 @@ Route::middleware(['auth', 'verified'])
     // categorie
     Route::resource('categories', CategoryController::class)->parameters(['categories' => 'category:slug']);
 }); 
+
+
+Route::post('email/store', [LeadController::class, 'store'])->name('email.store');
 
 
 // Route::get('/dashboard', function () {
