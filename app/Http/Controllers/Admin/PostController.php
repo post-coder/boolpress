@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 // helper per gestire le stringhe
@@ -49,10 +50,22 @@ class PostController extends Controller
         $formData = $request->all();
 
         $this->validation($formData);
-
+        
         $post = new Post();
         
+        
+        // prima di salvare la riga controlliamo che sia stato inviato un file
+        if($request->hasFile('cover_image')) {
+            
+            // Storage::put crea la cartella specificata in caso non esista
+            $path = Storage::put('post_images', $request->cover_image);
+            
+            // memorizzo il path dell'immagine salvata nell'array delle informazioni pronte da salvare nel db
+            $formData['cover_image'] = $path;
+        }
+        
         $post->fill($formData);
+
         // inserisco lo slug utilizzando l'helper Str
         $post->slug = Str::slug($post->title, '-');
         
@@ -112,6 +125,24 @@ class PostController extends Controller
 
         $this->validation($formData);
 
+
+        if($request->hasFile('cover_image')) {
+
+            if($post->cover_image) {
+                // cancelliamo la vecchia immagine
+                Storage::delete($post->cover_image);
+            }
+
+            // salviamo la nuova
+            // Storage::put crea la cartella specificata in caso non esista
+            $path = Storage::put('post_images', $request->cover_image);
+            
+            // memorizzo il path dell'immagine salvata nell'array delle informazioni pronte da salvare nel db
+            $formData['cover_image'] = $path;
+
+        }
+
+
         $post->slug = Str::slug($formData['title'], '-');
         // $formData['slug'] = Str::slug($formData['title'], '-');
         $post->update($formData);
@@ -136,6 +167,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if($post->cover_image) {
+            Storage::delete($post->cover_image);
+        }
+
         $post->delete();
 
         return redirect()->route('admin.posts.index');
@@ -149,12 +184,16 @@ class PostController extends Controller
             'title' => 'required|max:255|min:3',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'exists:tags,id',
+            'cover_image' => 'nullable|image|max:4096',
         ], [
             'title.max' => 'Il titolo deve avere massimo :max caratteri',
             'title.required' => 'Devi inserire un titolo',
             'title.min' => 'Il titolo deve avere minimo :min caratteri',
             'content.required' => 'Il post deve avere un contenuto',
             'category_id.exists' => 'La categoria deve essere presente nel nostro sito',
+            'cover_image.max' => "La dimensione del file è troppo grande",
+            'cover_image.image' => "Il file deve essere di tipo immagine",
         ])->validate();
     }
 }

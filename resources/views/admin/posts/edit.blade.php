@@ -5,7 +5,7 @@
 <div class="container">
   <h1 class="mb-3">Modifica il post</h1>
 
-  <form action="{{route('admin.posts.update', $post)}}" method="POST">
+  <form action="{{route('admin.posts.update', $post)}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -37,13 +37,37 @@
       @enderror
     </div>
 
+
+
+    {{-- inserimento file --}}
+
+    <div class="mb-3">
+      <label for="cover_image">Immagine di copertina</label>
+      <input type="file" id="cover_image" name="cover_image" class="form-control @error('cover_image') is-invalid @enderror" >
+      @error('cover_image')
+        <div class="invalid-feedback">
+          {{$message}}
+        </div>    
+      @enderror
+    </div>
+
+    {{-- / inserimento file --}}
+
+
+
+
     <div class="mb-3 form-group">
       <h4>Tags</h4>
 
       @foreach($tags as $tag)
         <div class="form-check">
-          {{--                                                                         aggiungere questo per fare il controllo dei check --}}
-          <input type="checkbox" id="tag-{{$tag->id}}" name="tags[]" value="{{$tag->id}}" @checked($post->tags->contains($tag))>
+          {{--                                                                      aggiungere questo per fare il controllo dei check --}}
+          @if($errors->any())
+            <input type="checkbox" id="tag-{{$tag->id}}" name="tags[]" value="{{$tag->id}}" @checked(in_array($tag->id, old('tags', [])))>
+          @else
+            <input type="checkbox" id="tag-{{$tag->id}}" name="tags[]" value="{{$tag->id}}" @checked($post->tags->contains($tag))>
+          @endif
+          
           <label for="tag-{{$tag->id}}">{{$tag->name}}</label>
         </div>
       @endforeach

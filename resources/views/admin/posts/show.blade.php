@@ -3,7 +3,12 @@
 @section('content')
 
 <div class="container">
-  <h1>Visualizzazione post</h1>
+  <div class="text-center">
+    <img src="{{ asset('storage/' . $post->cover_image) }}" alt="" class="w-50">
+  </div>
+
+
+  <h1>{{$post->title}}</h1>
   <span>Categoria: {{$post->category->name ?? 'nessuna'}}</span>
 
   <div class="d-flex py-3">
@@ -15,17 +20,7 @@
   <hr class="mb-4">
 
   <div class="py-3">
-    <h2 class="text-center">
-      {{$post->title}}
-      <br>
-      <small>
-        <pre class="fs-5">
-          ({{$post->slug}})
-        </pre>
-      </small>
-    </h2>
-  
-    <hr>  
+    
   
     <p>
       {{$post->content}}
