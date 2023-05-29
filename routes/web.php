@@ -41,9 +41,7 @@ Route::middleware(['auth', 'verified'])
 Route::post('email/store', [LeadController::class, 'store'])->name('email.store');
 
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
