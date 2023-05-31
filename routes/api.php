@@ -27,4 +27,7 @@ Route::get('test', function() {
     ]);
 });
 
-Route::get('posts', [PostController::class, 'index']);
+Route::get('/posts', [PostController::class, 'index']);
+
+// rotta per la show di un singolo post
+Route::get('/posts/{slug}', [PostController::class, 'show']);
