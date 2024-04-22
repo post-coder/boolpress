@@ -4,19 +4,23 @@
 
 <div class="container py-5">
 
-    <h1>{{$post->title}}</h1>
+  <div class="mb-4 text-center">
+    <img src="{{asset('storage/' . $post->cover_image)}}" alt="Copertina immagine">
+  </div>
 
-    <p>
-        {{$post->content}}
-    </p>
+  <h1>{{$post->title}}</h1>
 
-    <hr>
+  <p>
+      {{$post->content}}
+  </p>
 
-    <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-warning">Modifica</a>
+  <hr>
 
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-        Elimina
-    </button>
+  <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-warning">Modifica</a>
+
+  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+      Elimina
+  </button>
 
 <!-- Button trigger modal -->
   

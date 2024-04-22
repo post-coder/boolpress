@@ -23,7 +23,8 @@ class StorePostRequest extends FormRequest
     {
         return [
             'title' => 'unique:posts,title|max:255|required',
-            'content' => 'required'
+            'content' => 'required',
+            'cover_image' => 'file|max:1024|nullable|mimes:jpg,bmp,png'
         ];
     }
 
@@ -33,7 +34,9 @@ class StorePostRequest extends FormRequest
             'title.unique' => "È già presente un post con lo stesso titolo",
             'title.max' => "Il titolo deve avere massimo :max caratteri",
             'title.required' => 'Devi inserire un titolo',
-            'content.required' => 'Devi inserire il contenuto'
+            'content.required' => 'Devi inserire il contenuto',
+            'cover_image.mimes' => "Il file deve essere un'immagine",
+            'cover_image.max' => "La dimensione del file non deve superare i 1024 KB"
         ];
     }
 }

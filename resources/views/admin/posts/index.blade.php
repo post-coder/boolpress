@@ -13,6 +13,7 @@
             <th scope="col">Titolo</th>
             <th scope="col">Contenuto</th>
             <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
                 <th scope="row">{{$loop->index + 1}}</th>
                 <td>{{$post->title}}</td>
                 <td>{{$post->content}}</td>
+                <td><a href="{{route('admin.posts.show', $post->id)}}" class="btn btn-info">Mostra</a></td>
                 <td><a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-warning">Modifica</a></td>
             </tr>
             @endforeach
