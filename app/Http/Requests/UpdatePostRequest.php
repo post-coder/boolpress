@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostRequest extends FormRequest
+class UpdatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'unique:posts,title|max:255|required',
+            'title' => 'max:255|required',
             'content' => 'required',
             'cover_image' => 'file|max:1024|nullable|mimes:jpg,bmp,png',
             'category_id' => 'nullable|exists:categories,id'
@@ -32,7 +32,6 @@ class StorePostRequest extends FormRequest
     public function messages(): array 
     {
         return [
-            'title.unique' => "È già presente un post con lo stesso titolo",
             'title.max' => "Il titolo deve avere massimo :max caratteri",
             'title.required' => 'Devi inserire un titolo',
 

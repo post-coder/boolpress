@@ -12,7 +12,7 @@ class Post extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['title', 'content', 'category_id'];
 
     // aggiungiamo la possibilità di leggere le tabelle a lui collegate
 

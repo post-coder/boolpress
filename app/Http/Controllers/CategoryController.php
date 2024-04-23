@@ -13,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return "index delle categories";
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -37,7 +38,9 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        // dd($category->posts);
+
+        return view('admin.categories.show', compact('category'));
     }
 
     /**

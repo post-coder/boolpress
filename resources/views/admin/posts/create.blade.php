@@ -40,6 +40,19 @@
             @enderror
         </div>
 
+        <div class="mb-4">
+
+            <label for="category_id">Categoria</label>
+
+            <select class="form-select" name="category_id" id="category_id">
+                @foreach ($categories as $category)
+                <option value="{{$category->id}}" {{ $category->id == old('category_id') ? 'selected' : '' }}>{{ $category->title }}</option>
+                @endforeach
+
+            </select>
+
+        </div>
+
 
 
         <button class="btn btn-primary">Aggiungi</button>

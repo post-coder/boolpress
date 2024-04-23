@@ -19,16 +19,16 @@
         <tbody>
 
             
-            {{-- @dump($posts) --}}
-            {{-- @foreach($posts as $post)
+            {{-- @dump($categories) --}}
+            @foreach($categories as $category)
             <tr>
                 <th scope="row">{{$loop->index + 1}}</th>
-                <td>{{$post->title}}</td>
-                <td>{{$post->content}}</td>
-                <td><a href="{{route('admin.posts.show', $post->id)}}" class="btn btn-info">Mostra</a></td>
-                <td><a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-warning">Modifica</a></td>
+                <td>{{$category->title}}</td>
+                <td>{{$category->content}}</td>
+                <td><a href="{{route('admin.categories.show', $category->id)}}" class="btn btn-info">Mostra</a></td>
+                <td><a href="{{route('admin.categories.edit', $category->id)}}" class="btn btn-warning">Modifica</a></td>
             </tr>
-            @endforeach --}}
+            @endforeach
 
         </tbody>
       </table>

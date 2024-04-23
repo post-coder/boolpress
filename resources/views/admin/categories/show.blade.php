@@ -4,25 +4,16 @@
 
 <div class="container py-5">
 
-  <div class="mb-4 text-center">
-    <img src="{{asset('storage/' . $post->cover_image)}}" alt="Copertina immagine">
-  </div>
-
-  <h1>{{$post->title}}</h1>
-
-  {{-- 
-    Nullsafe operator: possibilità di accedere ad una variabile di un oggetto che non sappiamo se esista o no
-    utilissimo per le relazioni con tabelle che possono anche essere nulle
-  --}}
-  <small>{{ $post->category->title }}</small>
+  <h1>{{$category->title}}</h1>
+  
 
   <p>
-      {{$post->content}}
+      {{$category->description}}
   </p>
 
   <hr>
 
-  <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-warning">Modifica</a>
+  <a href="{{route('admin.posts.edit', $category->id)}}" class="btn btn-warning">Modifica</a>
 
   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
       Elimina
@@ -46,7 +37,7 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-            <form action="{{route('admin.posts.destroy', $post->id)}}" method="POST">
+            <form action="{{route('admin.posts.destroy', $category->id)}}" method="POST">
                 @csrf
                 @method("DELETE")
                 <button class="btn btn-danger">Elimina</button>

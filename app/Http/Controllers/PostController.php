@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +24,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        // prendiamo tutte le categorie dal db
+        // le passiamo alla view per mostrarle
+        $categories = Category::all();
+
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -31,7 +36,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        dd($request);
+        // dd($request);
 
         // validiamo i nostri parametri
         $request->validated();
@@ -54,7 +59,7 @@ class PostController extends Controller
         // dd($newPost);
         $newPost->save();
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.posts.show', $newPost->id);
 
     }
 
@@ -71,13 +76,15 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StorePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
         // dd($request);
 
