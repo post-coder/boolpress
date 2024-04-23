@@ -45,6 +45,9 @@
             <label for="category_id">Categoria</label>
 
             <select class="form-select" name="category_id" id="category_id">
+                
+                <option value=""></option>
+
                 @foreach ($categories as $category)
                 <option value="{{$category->id}}" {{ $category->id == old('category_id') ? 'selected' : '' }}>{{ $category->title }}</option>
                 @endforeach

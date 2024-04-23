@@ -14,7 +14,7 @@
     Nullsafe operator: possibilità di accedere ad una variabile di un oggetto che non sappiamo se esista o no
     utilissimo per le relazioni con tabelle che possono anche essere nulle
   --}}
-  <small>{{ $post->category->title }}</small>
+  <small>{{ $post->category?->title }}</small>
 
   <p>
       {{$post->content}}
