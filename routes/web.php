@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,10 @@ Route::middleware(['auth', 'verified'])
             Route::get('/users', [DashboardController::class, 'users'])->name('users');
 
 
+            // rotte di risorsa per i post
             Route::resource('posts', PostController::class);
+
+            // rotte di risorsa per le categorie
+            Route::resource('categories', CategoryController::class);
         }
 );

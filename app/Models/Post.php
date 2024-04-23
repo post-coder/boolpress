@@ -13,4 +13,11 @@ class Post extends Model
     use SoftDeletes;
 
     protected $fillable = ['title', 'content'];
+
+    // aggiungiamo la possibilità di leggere le tabelle a lui collegate
+
+    // il nostro post appartiene ad una sola categoria
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
 }
