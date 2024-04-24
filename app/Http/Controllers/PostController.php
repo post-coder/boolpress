@@ -68,6 +68,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        dd($post->tags);
         return view("admin.posts.show", compact('post'));
     }
 
