@@ -15,7 +15,7 @@ return new class extends Migration
             
             // questo ->constrained() obbliga il database (e laravel) a verificare che ogni elmento inserito in quella colonna
             // abbia l'id corrispettivo nella tabella collegata
-            $table->foreignId('category_id')->nullable()->constrained();
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
 
         });
     }
