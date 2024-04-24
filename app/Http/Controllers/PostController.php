@@ -92,8 +92,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -116,6 +117,11 @@ class PostController extends Controller
         }
 
         $post->update($request->all());
+
+
+        // modifichiamo i tag collegati al post
+        $post->tags()->sync($request->tags);
+
 
         return redirect()->route('admin.posts.show', $post->id);
     }

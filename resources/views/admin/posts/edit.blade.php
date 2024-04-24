@@ -61,7 +61,50 @@
 
         </div>
 
-        <button class="btn btn-primary">Aggiungi</button>
+
+        {{-- @dump(old('tags')) --}}
+        <div class="mb-4">
+            <label class="mb-2" for="">Tag</label>
+            <div class="d-flex gap-4">
+
+                @foreach($tags as $tag)
+                <div class="form-check ">
+
+                    {{-- controlliamo se sono presenti errori (stiamo probabilmente ricevendo dei parametri old() ) --}}
+                    @if($errors->any())
+
+                    {{-- se abbiamo errori e quindi old() --}}
+                    <input 
+                        type="checkbox" 
+                        name="tags[]"
+                        value="{{$tag->id}}" 
+                        class="form-check-input" 
+                        id="tag-{{$tag->id}}"
+
+                        {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}
+                    > 
+
+                    @else 
+                    {{-- se non abbiamo errori e quindi old() è nullo --}}
+                    <input 
+                        type="checkbox" 
+                        name="tags[]"
+                        value="{{$tag->id}}" 
+                        class="form-check-input" 
+                        id="tag-{{$tag->id}}"
+
+                        {{ $post->tags->contains($tag) ? 'checked' : '' }}
+                    > 
+                    @endif
+                    
+                    <label for="tag-{{$tag->id}}" class="form-check-label">{{$tag->title}}</label>
+                </div>
+                @endforeach
+
+            </div>
+        </div>
+
+        <button class="btn btn-primary">Modifica</button>
     
     </form>
 
