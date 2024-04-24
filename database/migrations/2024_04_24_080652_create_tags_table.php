@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('title');
-            $table->string('color', 6)->nullable();
+            $table->string('color', 7)->nullable();
 
             $table->timestamps();
         });
