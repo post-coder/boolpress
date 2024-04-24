@@ -16,6 +16,14 @@
   --}}
   <small>{{ $post->category?->title }}</small>
 
+
+  <div class="d-flex gap-2 mb-5">
+    @foreach ($post->tags as $tag)
+    <span class="badge rounded-pill" style="background-color: {{$tag->color ?? 'rgba(255,255,255,.4)'}}">{{$tag->title}}</span>
+    @endforeach
+  </div>
+
+
   <p>
       {{$post->content}}
   </p>
