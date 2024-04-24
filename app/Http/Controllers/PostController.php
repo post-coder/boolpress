@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
+
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Storage;
@@ -28,7 +30,10 @@ class PostController extends Controller
         // le passiamo alla view per mostrarle
         $categories = Category::all();
 
-        return view('admin.posts.create', compact('categories'));
+        // prelevo tutti i tag dal database e li passo alla vista
+        $tags = Tag::all();
+
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -36,7 +41,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        // dd($request);
+        dd($request);
 
         // validiamo i nostri parametri
         $request->validated();
