@@ -61,7 +61,6 @@
 
         </div>
 
-
         {{-- @dump(old('tags')) --}}
         <div class="mb-4">
             <label class="mb-2" for="">Tag</label>
@@ -69,33 +68,25 @@
 
                 @foreach($tags as $tag)
                 <div class="form-check ">
-
-                    {{-- controlliamo se sono presenti errori (stiamo probabilmente ricevendo dei parametri old() ) --}}
-                    @if($errors->any())
-
-                    {{-- se abbiamo errori e quindi old() --}}
                     <input 
                         type="checkbox" 
                         name="tags[]"
                         value="{{$tag->id}}" 
                         class="form-check-input" 
                         id="tag-{{$tag->id}}"
+                        
+                        {{-- controlliamo se sono presenti errori (stiamo probabilmente ricevendo dei parametri old() ) --}}
+                        {{-- se abbiamo errori e quindi old() --}}  
+                        @if($errors->any())
 
                         {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}
-                    > 
 
-                    @else 
-                    {{-- se non abbiamo errori e quindi old() è nullo --}}
-                    <input 
-                        type="checkbox" 
-                        name="tags[]"
-                        value="{{$tag->id}}" 
-                        class="form-check-input" 
-                        id="tag-{{$tag->id}}"
+                        @else 
 
                         {{ $post->tags->contains($tag) ? 'checked' : '' }}
+                        
+                        @endif
                     > 
-                    @endif
                     
                     <label for="tag-{{$tag->id}}" class="form-check-label">{{$tag->title}}</label>
                 </div>
