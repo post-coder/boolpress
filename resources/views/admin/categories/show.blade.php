@@ -37,7 +37,7 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-            <form action="{{route('admin.posts.destroy', $category->id)}}" method="POST">
+            <form action="{{route('admin.categories.destroy', $category->id)}}" method="POST">
                 @csrf
                 @method("DELETE")
                 <button class="btn btn-danger">Elimina</button>
