@@ -41,7 +41,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        dd($request);
+        // dd($request);
 
         // validiamo i nostri parametri
         $request->validated();
@@ -64,6 +64,15 @@ class PostController extends Controller
         // dd($newPost);
         $newPost->save();
 
+
+        // quando dobbiamo inserire dei dati presenti in una tabella ponte (con relazione many to many)
+        // dobbiamo fare tutto DOPO il ->save()
+
+        // importante: quando colleghiamo un metodo ai tag (in questo caso) siamo obbligati ad inserire le parentesi
+        // normalmente, se dobbiamo solo leggere i tags invece non sono necessarie
+        $newPost->tags()->attach($request->tags);
+
+
         return redirect()->route('admin.posts.show', $newPost->id);
 
     }
@@ -73,7 +82,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        dd($post->tags);
+        // dd($post->tags);
         return view("admin.posts.show", compact('post'));
     }
 
