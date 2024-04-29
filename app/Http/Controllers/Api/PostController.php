@@ -12,7 +12,8 @@ class PostController extends Controller
     public function index() {
         // restituirà tutti i post dal db
 
-        $posts = Post::all();
+        // $posts = Post::all();
+        $posts = Post::paginate(2);
 
         // dd($posts);
 
