@@ -12,8 +12,16 @@ class PostController extends Controller
     public function index() {
         // restituirà tutti i post dal db
 
+        // per ricevere tutti i post senza paginazione
         // $posts = Post::all();
-        $posts = Post::paginate(2);
+
+        // per ricevere i post con paginazione
+        // $posts = Post::paginate(2);
+
+        // per ricevere i post E tutte le categorie e i tag collegati
+        $posts = Post::with(['category', 'tags'])->paginate(2);
+
+        
 
         // dd($posts);
 
