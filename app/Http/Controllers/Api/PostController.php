@@ -35,12 +35,12 @@ class PostController extends Controller
     }
 
 
-    public function show($id) {
+    public function show($slug) {
 
         // per trovare il post senza eager loading
         // $post = Post::find($id);
 
-        $post = Post::with(['category', 'tags'])->where('id', '=', $id)->first();
+        $post = Post::with(['category', 'tags'])->where('slug', '=', $slug)->first();
 
         // possiamo scrivere la stessa cosa in questo modo:
         // ->find() cerca la riga della tabella che abbia la chiave primaria (id) uguale al valore che passiamo tra parentesi
