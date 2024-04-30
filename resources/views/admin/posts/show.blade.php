@@ -30,7 +30,7 @@
 
   <hr>
 
-  <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-warning">Modifica</a>
+  <a href="{{route('admin.posts.edit', $post)}}" class="btn btn-warning">Modifica</a>
 
   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
       Elimina
@@ -54,7 +54,7 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-            <form action="{{route('admin.posts.destroy', $post->id)}}" method="POST">
+            <form action="{{route('admin.posts.destroy', $post)}}" method="POST">
                 @csrf
                 @method("DELETE")
                 <button class="btn btn-danger">Elimina</button>

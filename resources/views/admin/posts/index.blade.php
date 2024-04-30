@@ -25,8 +25,8 @@
                 <th scope="row">{{$loop->index + 1}}</th>
                 <td>{{$post->title}}</td>
                 <td>{{$post->content}}</td>
-                <td><a href="{{route('admin.posts.show', $post->id)}}" class="btn btn-info">Mostra</a></td>
-                <td><a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-warning">Modifica</a></td>
+                <td><a href="{{route('admin.posts.show', $post)}}" class="btn btn-info">Mostra</a></td>
+                <td><a href="{{route('admin.posts.edit', $post)}}" class="btn btn-warning">Modifica</a></td>
             </tr>
             @endforeach
 

@@ -53,7 +53,7 @@ Route::middleware(['auth', 'verified'])
 
 
             // rotte di risorsa per i post
-            Route::resource('posts', PostController::class);
+            Route::resource('posts', PostController::class)->parameters(['posts' => 'post:slug']);
 
             // rotte di risorsa per le categorie
             Route::resource('categories', CategoryController::class);

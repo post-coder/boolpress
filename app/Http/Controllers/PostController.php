@@ -10,6 +10,10 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Storage;
 
+
+// importo la libreria Str per la gestione delle stringhe
+use Illuminate\Support\Str;
+
 class PostController extends Controller
 {
     /**
@@ -61,6 +65,9 @@ class PostController extends Controller
 
         $newPost->fill($request->all());
 
+        // salviamo anche lo slug
+        $newPost->slug = Str::slug($request->title);
+
         // dd($newPost);
         $newPost->save();
 
@@ -82,7 +89,6 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        // dd($post->tags);
         return view("admin.posts.show", compact('post'));
     }
 
@@ -116,7 +122,12 @@ class PostController extends Controller
             $post->cover_image = $path;
         }
 
+
+        // aggiorno lo slug
+        $post->slug = Str::slug($request->title);
+
         $post->update($request->all());
+
 
 
         // modifichiamo i tag collegati al post
