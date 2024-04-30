@@ -59,10 +59,19 @@ class PostController extends Controller
 
         // dd($post);
 
-        return response()->json([
-            "success" => true,
-            "post" => $post
-        ]);
+        if($post) {
+            return response()->json([
+                "success" => true,
+                "post" => $post
+            ]);
+
+        } else {
+            return response()->json([
+                "success" => false,
+                "error" => "Post not found"
+            ]);
+        }
+
 
     }
 
