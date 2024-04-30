@@ -22,3 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // tutte le rotte presenti in api.php iniziano con "api/"
 Route::get('/posts', [PostController::class, 'index']);
+
+// rotta per la show del singolo post
+Route::get('/posts/{id}', [PostController::class, 'show']);
