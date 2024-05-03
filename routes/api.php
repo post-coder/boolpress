@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,7 @@ Route::get('/posts', [PostController::class, 'index']);
 
 // rotta per la show del singolo post
 Route::get('/posts/{slug}', [PostController::class, 'show']);
+
+
+// creo la rotta che riceve i dati dal form front-end e li memorizza nel db
+Route::post('/new-contact', [LeadController::class, 'store']);
